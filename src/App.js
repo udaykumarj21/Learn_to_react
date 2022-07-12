@@ -4,7 +4,7 @@ const list = [
   {
     title: 'Book1',
     id: 1,
-    pages: 200,
+    pages: 250,
     cost: 800.0,
     site: 'mikybooks.com'
   },
