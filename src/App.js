@@ -20,11 +20,6 @@ const list = [
 function App() {
   return (
     <div>
-      <h1>Welcome To Micky Books</h1>
-
-      <label htmlFor="search">search</label>
-      <input id="search" type="text" />
-
       <ul>
         {list.map(function (i) {
           return (
@@ -44,4 +39,27 @@ function App() {
   );
 }
 
-export default App;
+function Search() {
+  return (
+    <span>
+      <Title />
+      <label htmlFor="search">search</label>
+      <input id="search" type="text" />
+    </span>
+  );
+}
+
+function Title() {
+  return <h1>Welcome To Micky Books</h1>;
+}
+
+function Main() {
+  return (
+    <div>
+      <Search />
+      <App />
+    </div>
+  );
+}
+
+export default Main;
