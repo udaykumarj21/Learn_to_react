@@ -64,24 +64,19 @@ const ItemSorter = (props) => {
   );
 };
 
-// function Search() {
-//   return (
-//     <span>
-//       <Title />
-//       <label htmlFor="search">search</label>
-//       <input id="search" type="text" />
-//     </span>
-//   );
-// }
-
 function Title() {
   return <h1>Welcome To Micky Books</h1>;
 }
 
 function App() {
+  const [str, setUpdatedStr] = React.useState('');
+
+  const handlerConstant = (event) => {
+    return setUpdatedStr(event.target.value);
+  };
   return (
     <div>
-      <Search />
+      <Search onSearch={handlerConstant} str={str} />
       <ResComps />
     </div>
   );
@@ -89,19 +84,15 @@ function App() {
 
 //Handler Function in JSX
 
-function Search() {
-  let temp = '';
-  const [str, setUpdatedStr] = React.useState(temp);
+function Search(props) {
+  let str = props.str;
 
-  const hadlerConstant = (event) => {
-    setUpdatedStr(event.target.value);
-  };
   console.log(str);
   return (
     <span>
       <Title />
       <label htmlFor="search">search</label>
-      <input id="search" type="text" onChange={hadlerConstant} />
+      <input id="search" type="text" onChange={props.onSearch} />
       <p>Searching for: {str}</p>
     </span>
   );
