@@ -1,4 +1,3 @@
-import { isArguments } from 'lodash';
 import * as React from 'react';
 //Made this block scoped in App component
 // const list = [
@@ -19,6 +18,7 @@ import * as React from 'react';
 // ];
 
 function ResComps() {
+  console.log('ResComps Initiated');
   const stories = [
     {
       title: 'Book1',
@@ -35,14 +35,17 @@ function ResComps() {
       site: 'mikybooks.com'
     }
   ];
-  return <List myList={stories} />;
+  return <UpdatedList myList={stories} />;
 }
 
 function List(props) {
+  console.log('List Initiated');
+  console.log(props.tempList);
   return (
     <div>
       <ul>
-        {props.myList.map(function (i) {
+        {props.tempList.map(function (i) {
+          console.log('I value' + i);
           return <ItemSorter key={i.key} item={i} />;
         })}
       </ul>
@@ -51,6 +54,7 @@ function List(props) {
 }
 
 const ItemSorter = (props) => {
+  console.log('ItemSorter Initiated');
   const item = props.item;
   return (
     <ul>
@@ -64,19 +68,32 @@ const ItemSorter = (props) => {
   );
 };
 
-function Title() {
-  return <h1>Welcome To Micky Books</h1>;
-}
-
-function App() {
+function UpdatedList(props) {
+  console.log('UpdatedList Initiated');
   const [str, setUpdatedStr] = React.useState('');
 
   const handlerConstant = (event) => {
     return setUpdatedStr(event.target.value);
   };
+  const searchFiltereList = props.myList.filter((story) => {
+    return story.title.toLowerCase().includes(str.toLowerCase());
+  });
   return (
     <div>
-      <Search onSearch={handlerConstant} str={str} />
+      <Search onSearch={handlerConstant} />
+      <List tempList={searchFiltereList} />
+    </div>
+  );
+}
+function Title() {
+  console.log('Title Initiated');
+  return <h1>Welcome To Micky Books</h1>;
+}
+
+function App() {
+  console.log('App Initiated');
+  return (
+    <div>
       <ResComps />
     </div>
   );
@@ -85,15 +102,12 @@ function App() {
 //Handler Function in JSX
 
 function Search(props) {
-  let str = props.str;
-
-  console.log(str);
+  console.log('Search Initiated');
   return (
     <span>
       <Title />
       <label htmlFor="search">search</label>
       <input id="search" type="text" onChange={props.onSearch} />
-      <p>Searching for: {str}</p>
     </span>
   );
 }
